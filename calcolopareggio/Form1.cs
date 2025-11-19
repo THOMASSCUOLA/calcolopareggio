@@ -24,6 +24,7 @@ namespace calcolopareggio
        
         private void button1_Click(object sender, EventArgs e)
         {
+            // Clear previous results
             dataGridView1.Rows.Clear();
 
             // valori iniziali
@@ -56,7 +57,8 @@ namespace calcolopareggio
                 d = 90 - 4 * q;
                 o = 10 + Math.Pow(q, 3) / 100.0;
 
-                dataGridView1.Rows.Add(q, d, o);
+            // Add initial row
+            dataGridView1.Rows.Add(q, d, o);
 
                 double diff = o - d;   // positivo = o sopra d
 
@@ -94,13 +96,13 @@ namespace calcolopareggio
 
             // 2) Appena supero 13.9 → salto diretto al successivo intero
             q = qTarget;  // esempio: si fissa a 14
-            d = 90 - 4 * q;
-            o = 10 + Math.Pow(q, 3) / 100.0;
-            dataGridView1.Rows.Add(q, d, o);
+                d = 90 - 4 * q;
+                o = 10 + Math.Pow(q, 3) / 100.0;
+                dataGridView1.Rows.Add(q, d, o);
 
             // 3) Ora incremento regolare di 1 come volevi
             while (d > oIniziale && counter < safetyLimit)
-            {
+                {
                 counter++;
 
                 q += 1;   // passo regolare da 1
