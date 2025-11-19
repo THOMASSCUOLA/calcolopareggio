@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36623.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "calcolopareggio", "calcolopareggio\calcolopareggio.csproj", "{BDB268CA-58D3-4216-89AE-4ECCA3C03114}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDB268CA-58D3-4216-89AE-4ECCA3C03114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB268CA-58D3-4216-89AE-4ECCA3C03114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB268CA-58D3-4216-89AE-4ECCA3C03114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB268CA-58D3-4216-89AE-4ECCA3C03114}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE0BF204-0547-4E4D-87E1-DCC69549023B}
+	EndGlobalSection
+EndGlobal
