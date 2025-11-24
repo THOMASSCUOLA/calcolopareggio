@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace calcolopareggio
 {
@@ -17,12 +18,12 @@ namespace calcolopareggio
             InitializeComponent();
             // Initialize columns for dataGridView
             dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("q", "q");
-            dataGridView1.Columns.Add("d", "d");
-            dataGridView1.Columns.Add("o", "o");
+            dataGridView1.Columns.Add("quantità", "quantità");
+            dataGridView1.Columns.Add("ddomanda", "domanda");
+            dataGridView1.Columns.Add("offerta", "offerta");
         }
-       
-        private void button1_Click(object sender, EventArgs e)
+
+            private void button1_Click(object sender, EventArgs e)
         {
             // Clear previous results
             dataGridView1.Rows.Clear();
@@ -33,7 +34,7 @@ namespace calcolopareggio
             double o = 10 + Math.Pow(q, 3) / 100.0;
 
             double dIniziale = 90;
-            double oIniziale = 10 ;
+            double oIniziale = 10;
 
             dataGridView1.Rows.Add(q, d, o);
 
@@ -57,8 +58,8 @@ namespace calcolopareggio
                 d = 90 - 4 * q;
                 o = 10 + Math.Pow(q, 3) / 100.0;
 
-            // Add initial row
-            dataGridView1.Rows.Add(q, d, o);
+                // Add initial row
+                dataGridView1.Rows.Add(q, d, o);
 
                 double diff = o - d;   // positivo = o sopra d
 
@@ -96,13 +97,13 @@ namespace calcolopareggio
 
             // 2) Appena supero 13.9 → salto diretto al successivo intero
             q = qTarget;  // esempio: si fissa a 14
-                d = 90 - 4 * q;
-                o = 10 + Math.Pow(q, 3) / 100.0;
-                dataGridView1.Rows.Add(q, d, o);
+            d = 90 - 4 * q;
+            o = 10 + Math.Pow(q, 3) / 100.0;
+            dataGridView1.Rows.Add(q, d, o);
 
             // 3) Ora incremento regolare di 1 come volevi
             while (d > oIniziale && counter < safetyLimit)
-                {
+            {
                 counter++;
 
                 q += 1;   // passo regolare da 1
@@ -111,6 +112,84 @@ namespace calcolopareggio
                 o = 10 + Math.Pow(q, 3) / 100.0;
 
                 dataGridView1.Rows.Add(q, d, o);
+            }
+
+            // ==============================================
+            // CREAZIONE DEL GRAFICO
+            // ==============================================
+
+            // Svuoto eventuali dati precedenti
+            chart1.Series["Domanda"].Points.Clear();
+            chart1.Series["Offerta"].Points.Clear();
+
+            // Popolo il grafico leggendo i valori dalla DataGridView
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells[0].Value == null) continue;
+
+                double qVal = Convert.ToDouble(row.Cells[0].Value);
+                double dVal = Convert.ToDouble(row.Cells[1].Value);
+                double oVal = Convert.ToDouble(row.Cells[2].Value);
+
+                chart1.Series["Domanda"].Points.AddXY(qVal, dVal);
+                chart1.Series["Offerta"].Points.AddXY(qVal, oVal);
+                // Arrotondo solo i valori visibili sugli assi del grafico
+                chart1.ChartAreas[0].AxisX.LabelStyle.Format = "0";     // solo interi
+                chart1.ChartAreas[0].AxisY.LabelStyle.Format = "0.##";  // massimo due decimali
+
+
+            }
+
+            // Miglioro l’aspetto come nel grafico Excel
+            chart1.ChartAreas[0].AxisX.Title = "quantità";
+            chart1.ChartAreas[0].AxisY.Title = "prezzo";
+            chart1.Titles.Clear();
+            chart1.Titles.Add("aggiornamento sw"); // titolo come nell’esempio
+            chart1.ChartAreas[0].RecalculateAxesScale();
+
+            // =============================
+            // PUNTO DI EQUILIBRIO
+            // =============================
+
+            // Cerco la prima riga in cui o >= d
+            double equilibrioQ = 0;
+            double equilibrioD = 0;
+            double equilibrioO = 0;
+            bool trovato = false;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells[0].Value == null)
+                    continue;
+
+                double qVal = Convert.ToDouble(row.Cells[0].Value);
+                double dVal = Convert.ToDouble(row.Cells[1].Value);
+                double oVal = Convert.ToDouble(row.Cells[2].Value);
+
+                if (oVal >= dVal && !trovato)
+                {
+                    equilibrioQ = qVal;
+                    equilibrioD = dVal;
+                    equilibrioO = oVal;
+                    trovato = true;
+                }
+            }
+
+            // Se trovato, metto il pallino rosso
+            if (trovato)
+            {
+                var serieEquilibrio = chart1.Series.Add("Equilibrio");
+                serieEquilibrio.ChartType = SeriesChartType.Point;
+                serieEquilibrio.MarkerStyle = MarkerStyle.Circle;
+                serieEquilibrio.MarkerSize = 7;
+                serieEquilibrio.Color = Color.Red;
+
+                serieEquilibrio.Points.AddXY(equilibrioQ, equilibrioD);
+
+                // Etichetta vicino al punto
+                serieEquilibrio.Points[0].Label = $"q={Math.Round(equilibrioQ, 5)}\nd={Math.Round(equilibrioD, 5)}\no={Math.Round(equilibrioO, 5)}";
+                serieEquilibrio.Points[0].LabelForeColor = Color.Black;
+
             }
 
 
