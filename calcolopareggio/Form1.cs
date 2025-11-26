@@ -30,28 +30,18 @@ namespace calcolopareggio
             double k = double.Parse(txtcoefficenteofferta.Text);  // coeff offerta (CORRETTO)
             int exp = int.Parse(txtcoefficenteEsponente.Text);    // esponente offerta
 
-            // valori iniziali
             double q = 0.0;
             double step = 0.01;
-
             double d = a - b * q;
             double o = c + k * Math.Pow(q, exp);
 
-            dataGridView1.Rows.Add(
-     Math.Round(q, 3),
-     Math.Round(d, 3),
-     Math.Round(o, 3)
- );
-
-
-            // =============================
-            // CERCA PUNTO DI EQUILIBRIO
-            // =============================
+            double qPrec = q;
+            double dPrec = d;
+            double oPrec = o;
 
             bool equilibrioTrovato = false;
             double equilibrioQ = 0, equilibrioD = 0, equilibrioO = 0;
 
-            double qPrec = 0, dPrec = 0, oPrec = 0; // valori precedenti
             int safety = 500000;
             int count = 0;
 
@@ -62,24 +52,20 @@ namespace calcolopareggio
                 d = a - b * q;
                 o = c + k * Math.Pow(q, exp);
 
-                dataGridView1.Rows.Add(
-                    Math.Round(q, 3),
-                    Math.Round(d, 3),
-                    Math.Round(o, 3));
+                dataGridView1.Rows.Add(Math.Round(q, 3), Math.Round(d, 3), Math.Round(o, 3));
 
-                if (!equilibrioTrovato && o >= d)
+                if (!equilibrioTrovato && (o >= d))
                 {
-                    // Interpolazione lineare tra ultimo punto e punto corrente
+                    // Interpolazione lineare
                     double t = (dPrec - oPrec) / ((o - oPrec) - (d - dPrec));
                     equilibrioQ = qPrec + t * (q - qPrec);
                     equilibrioD = a - b * equilibrioQ;
                     equilibrioO = c + k * Math.Pow(equilibrioQ, exp);
 
                     equilibrioTrovato = true;
-                    break;
+                    break;  // FERMA QUI appena trovato equilibrio
                 }
 
-                // memorizzo valori precedenti
                 qPrec = q;
                 dPrec = d;
                 oPrec = o;
@@ -94,10 +80,7 @@ namespace calcolopareggio
                 d = a - b * q;
                 o = c + k * Math.Pow(q, exp);
 
-                dataGridView1.Rows.Add(
-                    Math.Round(q, 3),
-                    Math.Round(d, 3),
-                    Math.Round(o, 3));
+                dataGridView1.Rows.Add(Math.Round(q, 3), Math.Round(d, 3), Math.Round(o, 3));
             }
 
             // =============================
@@ -105,7 +88,6 @@ namespace calcolopareggio
             // =============================
             if (equilibrioTrovato)
             {
-                yyy++;
                 MessageBox.Show(
                     $"Punto di equilibrio trovato:\n" +
                     $"q = {Math.Round(equilibrioQ, 5)}\n" +
@@ -115,7 +97,6 @@ namespace calcolopareggio
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
-
 
             // =============================
             // GRAFICO
