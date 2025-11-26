@@ -49,30 +49,44 @@ namespace calcolopareggio
             // =============================
             // CERCA PUNTO DI EQUILIBRIO
             // =============================
+            // =============================
+            // CERCA PUNTO DI EQUILIBRIO PIU' PRECISO
+            // =============================
             bool equilibrioTrovato = false;
             double equilibrioQ = 0, equilibrioD = 0, equilibrioO = 0;
 
+            double qPrec = 0, dPrec = 0, oPrec = 0; // valori precedenti
             int safety = 500000;
             int count = 0;
 
             while (count < safety)
             {
                 count++;
-
                 q += step;
                 d = a - b * q;
                 o = c + k * Math.Pow(q, exp);
 
-                dataGridView1.Rows.Add(q, d, o);
+                dataGridView1.Rows.Add(
+                    Math.Round(q, 3),
+                    Math.Round(d, 3),
+                    Math.Round(o, 3));
 
-                if (o >= d && !equilibrioTrovato)
+                if (!equilibrioTrovato && o >= d)
                 {
+                    // Interpolazione lineare tra ultimo punto e punto corrente
+                    double t = (dPrec - oPrec) / ((o - oPrec) - (d - dPrec));
+                    equilibrioQ = qPrec + t * (q - qPrec);
+                    equilibrioD = a - b * equilibrioQ;
+                    equilibrioO = c + k * Math.Pow(equilibrioQ, exp);
+
                     equilibrioTrovato = true;
-                    equilibrioQ = q;
-                    equilibrioD = d;
-                    equilibrioO = o;
                     break;
                 }
+
+                // memorizzo valori precedenti
+                qPrec = q;
+                dPrec = d;
+                oPrec = o;
             }
 
             // =============================
@@ -84,8 +98,27 @@ namespace calcolopareggio
                 d = a - b * q;
                 o = c + k * Math.Pow(q, exp);
 
-                dataGridView1.Rows.Add(q, d, o);
+                dataGridView1.Rows.Add(
+                    Math.Round(q, 3),
+                    Math.Round(d, 3),
+                    Math.Round(o, 3));
             }
+
+            // =============================
+            // MOSTRA PUNTO DI EQUILIBRIO
+            // =============================
+            if (equilibrioTrovato)
+            {
+                MessageBox.Show(
+                    $"Punto di equilibrio trovato:\n" +
+                    $"q = {Math.Round(equilibrioQ, 5)}\n" +
+                    $"d = {Math.Round(equilibrioD, 5)}\n" +
+                    $"o = {Math.Round(equilibrioO, 5)}",
+                    "Equilibrio",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+
 
             // =============================
             // GRAFICO

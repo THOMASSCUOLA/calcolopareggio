@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
@@ -51,25 +51,25 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(489, 30);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Domanda";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Offerta";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series3.Name = "Domanda";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series4.Name = "Offerta";
+            this.chart1.Series.Add(series3);
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(491, 379);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
@@ -122,6 +122,7 @@
             this.txtdomandafissa.Name = "txtdomandafissa";
             this.txtdomandafissa.Size = new System.Drawing.Size(100, 20);
             this.txtdomandafissa.TabIndex = 8;
+            this.txtdomandafissa.Text = "100";
             // 
             // txtoffertafissa
             // 
@@ -129,6 +130,7 @@
             this.txtoffertafissa.Name = "txtoffertafissa";
             this.txtoffertafissa.Size = new System.Drawing.Size(100, 20);
             this.txtoffertafissa.TabIndex = 9;
+            this.txtoffertafissa.Text = "10";
             // 
             // txtcoefficenteofferta
             // 
@@ -136,6 +138,7 @@
             this.txtcoefficenteofferta.Name = "txtcoefficenteofferta";
             this.txtcoefficenteofferta.Size = new System.Drawing.Size(100, 20);
             this.txtcoefficenteofferta.TabIndex = 13;
+            this.txtcoefficenteofferta.Text = "0.05";
             // 
             // txtcoefficenteDomanda
             // 
@@ -143,6 +146,7 @@
             this.txtcoefficenteDomanda.Name = "txtcoefficenteDomanda";
             this.txtcoefficenteDomanda.Size = new System.Drawing.Size(100, 20);
             this.txtcoefficenteDomanda.TabIndex = 12;
+            this.txtcoefficenteDomanda.Text = "5";
             // 
             // label3
             // 
@@ -168,6 +172,7 @@
             this.txtcoefficenteEsponente.Name = "txtcoefficenteEsponente";
             this.txtcoefficenteEsponente.Size = new System.Drawing.Size(100, 20);
             this.txtcoefficenteEsponente.TabIndex = 15;
+            this.txtcoefficenteEsponente.Text = "3";
             // 
             // label5
             // 
