@@ -19,12 +19,10 @@ namespace calcolopareggio
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            // Clear rows
+            int yyy=0;
             dataGridView1.Rows.Clear();
 
-            // =============================
-            // LETTURA PARAMETRI DINAMICI
-            // =============================
+           
             double a = double.Parse(txtdomandafissa.Text);        // domanda costante
             double b = double.Parse(txtcoefficenteDomanda.Text);  // coeff domanda
 
@@ -49,9 +47,7 @@ namespace calcolopareggio
             // =============================
             // CERCA PUNTO DI EQUILIBRIO
             // =============================
-            // =============================
-            // CERCA PUNTO DI EQUILIBRIO PIU' PRECISO
-            // =============================
+
             bool equilibrioTrovato = false;
             double equilibrioQ = 0, equilibrioD = 0, equilibrioO = 0;
 
@@ -109,6 +105,7 @@ namespace calcolopareggio
             // =============================
             if (equilibrioTrovato)
             {
+                yyy++;
                 MessageBox.Show(
                     $"Punto di equilibrio trovato:\n" +
                     $"q = {Math.Round(equilibrioQ, 5)}\n" +
@@ -149,8 +146,14 @@ namespace calcolopareggio
             // =============================
             // PUNTO DI EQUILIBRIO (pallino rosso)
             // =============================
+
             if (equilibrioTrovato)
             {
+                if (chart1.Series.IndexOf("Equilibrio") != -1)
+                {
+                    chart1.Series.RemoveAt(chart1.Series.IndexOf("Equilibrio"));
+                }
+
                 var serieEquilibrio = chart1.Series.Add("Equilibrio");
                 serieEquilibrio.ChartType = SeriesChartType.Point;
                 serieEquilibrio.MarkerStyle = MarkerStyle.Circle;
